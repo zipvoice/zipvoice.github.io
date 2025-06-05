@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.88.1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href=""https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/normalize.css">
+
+	<title>ZipVoice</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+
+<body data-new-gr-c-s-check-loaded="14.1091.0" data-gr-ext-installed="">
+
+<div class="container" >
+<header role="banner">
+</header>
+<main role="main">
+<article itemscope itemtype="https://schema.org/BlogPosting">
+
+<div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+	<div class="text-center">
+      <h2>ZipVoice: Fast and High-Quality Zero-Shot Text-to-Speech with Flow Matching</h2>
+	  <br>
+	  <br>
+	</div>
+	<p><b>Abstract</b>
+		Existing large-scale zero-shot text-to-speech (TTS) models deliver high speech quality but suffer from slow inference speeds due to massive parameters. To address this issue, this paper introduces ZipVoice, a high-quality flow-matching-based zero-shot TTS model with a compact model size and fast inference speed. Key designs include: 1) a Zipformer-based flow-matching decoder to maintain adequate modeling capabilities under constrained size; 2) Average upsampling-based initial speech-text alignment and Zipformer-based text encoder to improve speech intelligibility; 3) A flow distillation method to reduce sampling steps and eliminate the inference overhead associated with classifier-free guidance.
+		Experiments on 100k hours multilingual datasets show that ZipVoice matches state-of-the-art models in speech quality, while being 3 times smaller and up to 30 times faster than a DiT-based flow-matching baseline. Demo samples are available at <a href="https://zipvoice.github.io">https://zipvoice.github.io</a>. All codes and checkpoints will be released. 
+	</p>
+	<br>
+	<p>
+	<b>Contents</b>
+      <ul>
+        <li><a href="#model-overview">Model Overview</a></li>
+        <li><a href="#same_language_zero-shot">Same Language Zero-shot Generation</a></li>
+		<li><a href="#cross_lingual_zero-shot">Cross-Lingual Zero-shot Generation</a></li>
+      </ul>
+	</p>
+
+
+	
+</div>
+
+
+<div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">		
+	<h2 id="model-overview" style="text-align: center;">Model Overview</h2>
+	<body>
+	<p style="text-align: center;">
+		<img src="pics/zipvoice.png" height="350" width="700">
+	</p>
+	</body>
+	<p style="text-align: left;" >
+		<b>Figure 1</b>: An overview of ZipVoice. ZipVoice consists of a text encoder and a flow-matching decoder, both employing Zipformer as the backbone. The model is trained with the condition flow matching loss and speech-infilling task. The input text is initially aligned with the speech with average upsampling.
+	<p>Samples in this demo page are generated with ZipVoice (NFE=16) and ZipVoice-Distill (NFE=8).
+</div>
+
+
+<div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+	<h2 id="same_language_zero-shot" style="text-align: center;">Same Language Zero-shot Generation</h2>
+	<p>Prompt and text are from the demo page of Seed-TTS.</p>
+		<div class="table-responsive pt-3">
+			<table class="table table-hover pt-2">
+				<thead>
+				<tr>
+				<th style="vertical-align : middle;text-align: center">Prompt </th>
+				<th style="vertical-align : middle;text-align: center">Text</th>
+				<th style="vertical-align : middle;text-align: center">ZipVoice</th>
+				<th style="vertical-align : middle;text-align: center">ZipVoice-Distill</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>I don't really care what you call me. I've been a silent spectator, watching species evolve, empires rise and fall. But always remember, I am mighty and enduring. Respect me and I'll nurture you; ignore me and you shall face the consequences.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_1_gen_en_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_1_gen_en_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>Perhaps they are driven by the delicious blend of flavors, or it could be the appealing visual presentation. At the end of the day, our choices in food reflect our personal preferences and sometimes, even our lifestyle or belief system.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_2_gen_en_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_2_gen_en_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>Your safety and the pack's reputation are at stake. Your bravery is admirable, but sometimes bravery is knowing when to retreat. Please, consider returning with me. We can work out a plan, but only if you're willing to listen.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_3_gen_en_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_3_gen_en_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>突然，身边一阵笑声。我看着他们，意气风发地挺直了胸膛，甩了甩那稍显肉感的双臂，轻笑道："我身上的肉，是为了掩饰我爆棚的魅力，否则，岂不吓坏了你们呢？"</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_1_gen_zh_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_1_gen_zh_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>顿时，气氛变得沉郁起来。乍看之下，一切的困扰仿佛都围绕在我身边。我皱着眉头，感受着那份压力，但我知道我不能放弃，不能认输。于是，我深吸一口气，心底的声音告诉我：“无论如何，都要冷静下来，重新开始。”</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_2_gen_zh_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_2_gen_zh_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>皇上的面色未变，宛如雕塑般静止，他的眼中闪过一丝动人的温度。他深深地看了那位忠心耿耿的臣子一眼，终于开口：“诺，我会再考虑考虑的。”他的声音低沉且坚定，留下空气中隐隐的无奈与柔情。</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_3_gen_zh_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_3_gen_zh_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<br>
+</div>
+
+<div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+	<h2 id="cross_lingual_zero-shot" style="text-align: center;">Cross-Lingual Zero-shot Generation</h2>
+	<p>Prompt and text are from the demo page of Seed-TTS.</p>
+		<div class="table-responsive pt-3">
+			<table class="table table-hover pt-2">
+				<thead>
+				<tr>
+				<th style="vertical-align : middle;text-align: center">Prompt </th>
+				<th style="vertical-align : middle;text-align: center">Text</th>
+				<th style="vertical-align : middle;text-align: center">ZipVoice</th>
+				<th style="vertical-align : middle;text-align: center">ZipVoice-Distill</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>顿时，气氛变得沉郁起来。乍看之下，一切的困扰仿佛都围绕在我身边。我皱着眉头，感受着那份压力，但我知道我不能放弃，不能认输。于是，我深吸一口气，心底的声音告诉我：“无论如何，都要冷静下来，重新开始。”</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_1_gen_zh_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_1_gen_zh_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>我抬起头，坚定地说：“身高不能决定一切，这世界在看我，我更看得到世界。无论是北上广，或是别的什么，我都将以我自己的方式去攀爬，去追逐。我可能小，但我绝不会被忽视。”</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_2_gen_zh_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_2_gen_zh_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>你的安全以及族群的声誉都危在旦夕。你的勇敢令人钦佩，但有时候勇敢在于懂得何时撤退。拜托，考虑一下和我一起回去吧。我们可以制定一个计划，但前提是你愿意倾听。</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_3_gen_zh_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_en_3_gen_zh_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>Suddenly, there was a burst of laughter beside me. I looked at them, stood up straight with high spirit, shook the slightly fleshy arms, and smiled lightly, saying, "The flesh on my body is to hide my bursting charm. Otherwise, wouldn't it scare you?"</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_1_gen_en_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_1_gen_en_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>Suddenly, the atmosphere became gloomy. At first glance, all the troubles seemed to surround me. I frowned, feeling that pressure, but I know I can't give up, can't admit defeat. So, I took a deep breath, and the voice in my heart told me, "Anyway, must calm down and start again."</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_2_gen_en_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_2_gen_en_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><br>The emperor's complexion did not change, remaining as still as a sculpture, and a touch of touching warmth flashed in his eyes. He deeply glanced at the loyal minister, and finally spoke: "Well, I will consider it again." His voice was low and firm, leaving a faint hint of helplessness and tenderness in the air.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_3_gen_en_zipvoice.wav" autoplay/>Your browser does not support the audio element.</audio>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/zero_shot/seedtts_ref_zh_3_gen_en_zipvoice_distill.wav" autoplay/>Your browser does not support the audio element.</audio>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<br>
+</div>
+
+
+
+</article>
+</main>
+</div>
+
+</body>
+</html>
