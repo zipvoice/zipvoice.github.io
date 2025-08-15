@@ -26,13 +26,17 @@
 
 <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
 	<div class="text-center">
-      <h2>ZipVoice: Fast and High-Quality Zero-Shot Text-to-Speech with Flow Matching</h2>
+		<h2 style="font-size: 30px;">ZipVoice⚡️</h2>
+		<h2 style="font-size: 25px;">Fast and High-Quality Zero-Shot Text-to-Speech with Flow Matching</h2>
 	  <br>
-	  <br>
+        <p>
+            <a href="https://arxiv.org/abs/2506.13053">Paper</a> |
+            <a href="https://github.com/k2-fsa/ZipVoice">Codes and models</a>
+        </p>
 	</div>
 	<p><b>Abstract</b>
 		Existing large-scale zero-shot text-to-speech (TTS) models deliver high speech quality but suffer from slow inference speeds due to massive parameters. To address this issue, this paper introduces ZipVoice, a high-quality flow-matching-based zero-shot TTS model with a compact model size and fast inference speed. Key designs include: 1) a Zipformer-based flow-matching decoder to maintain adequate modeling capabilities under constrained size; 2) Average upsampling-based initial speech-text alignment and Zipformer-based text encoder to improve speech intelligibility; 3) A flow distillation method to reduce sampling steps and eliminate the inference overhead associated with classifier-free guidance.
-		Experiments on 100k hours multilingual datasets show that ZipVoice matches state-of-the-art models in speech quality, while being 3 times smaller and up to 30 times faster than a DiT-based flow-matching baseline. Demo samples are available at <a href="https://zipvoice.github.io">https://zipvoice.github.io</a>. All codes and checkpoints will be released. 
+		Experiments on 100k hours multilingual datasets show that ZipVoice matches state-of-the-art models in speech quality, while being 3 times smaller and up to 30 times faster than a DiT-based flow-matching baseline. Codes, model checkpoints and demo samples are publicly available at <a href="https://github.com/k2-fsa/ZipVoice">https://github.com/k2-fsa/ZipVoice</a>. 
 	</p>
 	<br>
 	<p>
@@ -43,9 +47,6 @@
 		<li><a href="#cross_lingual_zero-shot">Cross-Lingual Zero-shot Generation</a></li>
       </ul>
 	</p>
-
-
-	
 </div>
 
 
@@ -53,7 +54,7 @@
 	<h2 id="model-overview" style="text-align: center;">Model Overview</h2>
 	<body>
 	<p style="text-align: center;">
-		<img src="pics/zipvoice.png" height="350" width="700">
+		<img src="pics/zipvoice.png" height="600" width="1200">
 	</p>
 	</body>
 	<p style="text-align: left;" >
